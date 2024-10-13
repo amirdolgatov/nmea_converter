@@ -1,0 +1,3 @@
+/home/amir/Projects/nmea_converter/cmake-build-debug/CMakeFiles/nmea_converter.dir
+/home/amir/Projects/nmea_converter/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/amir/Projects/nmea_converter/cmake-build-debug/CMakeFiles/rebuild_cache.dir
