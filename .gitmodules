@@ -1,0 +1,3 @@
+[submodule "BBB-UART-anybaud"]
+	path = BBB-UART-anybaud
+	url = git@github.com:amirdolgatov/BBB-UART-anybaud.git

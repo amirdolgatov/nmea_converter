@@ -1,3 +1,5 @@
 # ninja log v5
-0	283	1728857508969420577	CMakeFiles/nmea_converter.dir/main.cpp.o	42fdd1757d9ba2d1
-283	345	1728857509031422696	nmea_converter	a9fb5bf4672b7572
+1	199	1729628159784179659	BBB_UART_anybaud/CMakeFiles/bbb_uart.dir/bbb_uart.cpp.o	457041644f7cd729
+1	203	1729628159789179684	CMakeFiles/nmea_converter.dir/main.cpp.o	42fdd1757d9ba2d1
+199	242	1729628159826179867	BBB_UART_anybaud/libbbb_uart.so	6200922eeb4a6fb
+242	286	1729628159871180089	nmea_converter	960d699a2bde59be

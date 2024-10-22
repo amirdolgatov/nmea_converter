@@ -6,6 +6,10 @@
 			[
 				{
 					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
 					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
@@ -13,6 +17,21 @@
 					},
 					"projectIndex" : 0,
 					"source" : ".",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "BBB-UART-anybaud",
+					"jsonFile" : "directory-BBB-UART-anybaud-Debug-bd4320543290eea2dc86.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.26"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "BBB-UART-anybaud",
 					"targetIndexes" : 
 					[
 						0
@@ -25,21 +44,30 @@
 				{
 					"directoryIndexes" : 
 					[
-						0
+						0,
+						1
 					],
 					"name" : "nmea_converter",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
 			"targets" : 
 			[
 				{
+					"directoryIndex" : 1,
+					"id" : "bbb_uart::@8528511f682cd98ec491",
+					"jsonFile" : "target-bbb_uart-Debug-3c5f87933984193406d4.json",
+					"name" : "bbb_uart",
+					"projectIndex" : 0
+				},
+				{
 					"directoryIndex" : 0,
 					"id" : "nmea_converter::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-nmea_converter-Debug-d57db0ceb3556b6d6802.json",
+					"jsonFile" : "target-nmea_converter-Debug-eed35316412b34ec5d9c.json",
 					"name" : "nmea_converter",
 					"projectIndex" : 0
 				}
