@@ -10,9 +10,7 @@
 	{
 		"commands" : 
 		[
-			"add_executable",
-			"target_link_libraries",
-			"target_include_directories"
+			"add_executable"
 		],
 		"files" : 
 		[
@@ -26,19 +24,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 6,
-				"parent" : 0
-			},
-			{
-				"command" : 1,
-				"file" : 0,
-				"line" : 7,
-				"parent" : 0
-			},
-			{
-				"command" : 2,
-				"file" : 0,
-				"line" : 8,
+				"line" : 10,
 				"parent" : 0
 			}
 		]
@@ -52,13 +38,6 @@
 					"fragment" : "-g -fdiagnostics-color=always"
 				}
 			],
-			"includes" : 
-			[
-				{
-					"backtrace" : 3,
-					"path" : "/home/amir/Projects/nmea_converter/BBB-UART-anybaud"
-				}
-			],
 			"language" : "CXX",
 			"languageStandard" : 
 			{
@@ -70,15 +49,9 @@
 			},
 			"sourceIndexes" : 
 			[
-				0
+				0,
+				1
 			]
-		}
-	],
-	"dependencies" : 
-	[
-		{
-			"backtrace" : 2,
-			"id" : "bbb_uart::@8528511f682cd98ec491"
 		}
 	],
 	"id" : "nmea_converter::@6890427a1f51a3e7e1df",
@@ -93,15 +66,6 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
-			},
-			{
-				"fragment" : "-Wl,-rpath,/home/amir/Projects/nmea_converter/cmake-build-debug/BBB-UART-anybaud",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 2,
-				"fragment" : "BBB-UART-anybaud/libbbb_uart.so",
-				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
@@ -119,7 +83,8 @@
 			"name" : "Source Files",
 			"sourceIndexes" : 
 			[
-				0
+				0,
+				1
 			]
 		}
 	],
@@ -129,6 +94,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "main.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Serial.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

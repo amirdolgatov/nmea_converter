@@ -7,14 +7,26 @@
 
 #include <stdint.h>
 
-struct Packet_05{
+struct packet_00{               // Пакет для установления связи по сети Ethernet
+    uint32_t TCmd = 0;          // Технологическая команда. Передавать 0
+}; // 4 байта
+
+
+#pragma pack(push,1)
+
+struct packet_05{
+
+    uint8_t Hdr = 0xA5;            // Синхробайт        = 0xA5
+    uint8_t Id = 0x05;             // Идентификатор     = 0x05
+    uint8_t Len = 0x3C;            // Длина тела пакета = 0x3C
+
     uint16_t sw1_ppa;
     uint16_t sw2_ppa;
     int vn_s;
     int ve_s;
     int vu_s;
-    float lat_s;
-    float lon_s; // 24
+    int lat_s;
+    int lon_s; // 24
     int16_t alt_s; // Абсолютная барометрическая высота
     int16_t t_upd;
     uint16_t time; // Время (часы, минуты)
@@ -33,9 +45,15 @@ struct Packet_05{
     uint16_t sat_info;
     uint16_t ch_info;
     uint16_t az_el; // 18 * 2 + 24 = 60
-};
 
-class udp_packet{
+    uint8_t crc = 0;
+};
+#pragma pack(pop)
+
+
+class packet{
+
+public:
 
     void set_vn_s(){ }
     void set_ve_s(){ }
@@ -50,8 +68,9 @@ class udp_packet{
     void set_VFOM(){ }
     void set_HFOM(){ }
 
-    uint8_t buffer[100];
-    Packet_05* data = (Packet_05*)buffer;
+    uint8_t buffer[300];
+    packet_05* data = (packet_05*)buffer;
+    uint32_t size = sizeof(packet_05);
 
 };
 

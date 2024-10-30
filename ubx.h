@@ -16,8 +16,10 @@
 
 
 enum MSG_ID{
-    UBX_NAV_PVT = 0x0107,
-    UBX_NAV_SIG = 0x0143,
+    NAV_PVT = 0x0107,
+    NAV_SAT = 0x0135,
+    NAV_SIG = 0x0143,
+    UNKNOWN = 0x0000
 };
 
 
@@ -69,25 +71,24 @@ struct nav_pvt_payload{
 };
 
 struct nav_sig_payload{
-
     ;
+};
 
+struct nav_sat_payload{
+    ;
 };
 
 struct received_data{
     nav_pvt_payload* nav_pvt;
     nav_sig_payload* nav_sig;
+    nav_sat_payload* nav_sat;
 };
 
 
 struct message{
-    uint8_t data[120];              // буфер с данными
-//    time_val time;                  // метка времени получения пакета
+    MSG_ID msg_id;
+    uint8_t data[500];              // буфер с данными
     size_t size;                    // размер полученного сообщения
-
-//    bool is_near(message& other, float delta){
-//        return (this->time - other.time) < delta; //TODO
-//    }
 
     uint8_t* get_raw_data(){
         return data;
@@ -97,9 +98,16 @@ struct message{
         return size;
     }
 
-    uint16_t get_type(){
-        ubx_header* header = (ubx_header*) data;
-        return bswap_16(header->id);
+    void set_size(size_t size){
+        this->size = size;
+    }
+
+    void add_element(uint8_t byte){
+        data[size++] = byte;
+    }
+
+    void clear(){
+        size = 0;
     }
 };
 
@@ -132,6 +140,18 @@ bool check_summ(message& input_msg){
     return true;
 }
 
+nav_pvt_payload* parse_nav_pvt(uint8_t* data){
+    return (nav_pvt_payload*) data;
+}
+
+nav_sig_payload* parse_nav_sig(uint8_t* data){
+    return (nav_sig_payload*) data;
+}
+
+nav_sat_payload* parse_nav_sat(uint8_t* data){
+    return (nav_sat_payload*) data;
+}
+
 bool parse_ubx(message& input_msg, received_data& received_data){
 // Чтобы наполнить пакет_05 нужно извлечь информацию из нескольких сообщений,
 // Стоит ли отправлять информацию если обновлена только часть полей? Нет.
@@ -143,14 +163,19 @@ bool parse_ubx(message& input_msg, received_data& received_data){
     if(! check_summ(input_msg))
         return false;
 
+
+
     ubx_header* header = (ubx_header*) input_msg.get_raw_data();
 
     switch(bswap_16(header->id)){
         case UBX_NAV_PVT:
-            received_data.nav_pvt = (nav_pvt_payload*) &header->data;
+            received_data.nav_pvt = parse_nav_pvt(&header->data);
+            break;
+        case UBX_NAV_SAT:
+            ;
             break;
         case UBX_NAV_SIG:
-            received_data.nav_sig = (nav_sig_payload*) &header->data;
+            ;
             break;
         default:
             ;
@@ -160,14 +185,12 @@ bool parse_ubx(message& input_msg, received_data& received_data){
 
 
 
-
-
 class msg_container{
 public:
 
     enum STATES{
         WAIT_NAV_PVT,
-        WAIT_NAV_SIG
+        WAIT_NAV_SAT
     };
 
     msg_container(size_t size = 3):size{size}
@@ -183,19 +206,22 @@ public:
 
     bool add(message msg){
 
-        switch(msg.get_type()){
+        switch(msg.msg_id){
             case MSG_ID::UBX_NAV_PVT:
                 if(state == WAIT_NAV_PVT){
+                    std::cout << "Receive UBX_NAV_PVT" << std::endl;
                     msg_ptr = 0;
                     msg_buf[msg_ptr++] = msg;
-                    state = WAIT_NAV_SIG;
+                    state = WAIT_NAV_SAT;
                     return false;
                 }
                 break;
-            case MSG_ID::UBX_NAV_SIG:
-                if(state == WAIT_NAV_SIG){
+            case MSG_ID::UBX_NAV_SAT:
+                if(state == WAIT_NAV_SAT){
+                    std::cout << "Receive UBX_NAV_SAT" << std::endl;
                     msg_buf[msg_ptr] = msg;
                     state = WAIT_NAV_PVT;
+                    std::cout << "get 2 msg" << std::endl;
                     return true;
                 }
                 break;
@@ -218,7 +244,5 @@ public:
 
 };
 
-void get_sync_msg(){
-}
 
 #endif //NMEA_CONVERTER_UBX_H
